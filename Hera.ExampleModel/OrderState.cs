@@ -16,6 +16,7 @@ namespace Hera.ExampleModel
             Items = new List<OrderItem>();
         }
 
+        public CustomerId CustomerId { get; set; }
         public DateTime CreationDate { get; set; }
         public OrderStatus Status { get; set; }
         public List<OrderItem> Items { get; set; }
@@ -23,6 +24,7 @@ namespace Hera.ExampleModel
         public void When(OrderCreated @event)
         {
             Id = @event.Id;
+            CustomerId = @event.CustomerId;
             CreationDate = @event.CreationDate;
             Status = OrderStatus.Created;
         }

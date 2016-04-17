@@ -21,6 +21,10 @@ namespace Hera.ExampleModel
         {
             get { return State.ProductId; }
         }
+        public decimal Total
+        {
+            get { return 20m; /* State.Price * State.Count */ }
+        }
 
         public void UpdatePrice(Price price)
         {

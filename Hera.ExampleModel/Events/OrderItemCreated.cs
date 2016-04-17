@@ -1,4 +1,5 @@
 ﻿using Hera.DomainModeling;
+using Hera.DomainModeling.DomainEvent;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Hera.ExampleModel.Events
 {
-    public class OrderItemCreated : IEvent
+    public class OrderItemCreated : IDomainEvent
     {
         public OrderItemCreated(Order order, OrderItemId id, ProductId productId, Price price, int count)
         {
