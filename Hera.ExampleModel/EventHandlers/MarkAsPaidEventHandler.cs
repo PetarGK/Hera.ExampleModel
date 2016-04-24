@@ -23,12 +23,12 @@ namespace Hera.ExampleModel.EventHandlers
 
         public void Handle(MarkAsPaid @event)
         {
-            var customer = _repository.Load<Customer>(@event.CustomerId, "Default");
+            var customer = _repository.Load<Customer>(@event.CustomerId);
 
             if (_goldValidator.Validate(customer, @event.Price))
             {
                 customer.MarkAsGoldMember();
-                _repository.Save(customer, "Default");
+                _repository.Save(customer);
             }
         }
     }
