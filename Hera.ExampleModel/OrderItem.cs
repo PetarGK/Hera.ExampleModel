@@ -3,6 +3,7 @@ using Hera.ExampleModel.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +16,10 @@ namespace Hera.ExampleModel
             State.ProductId = productId;
             State.Price = price;
             State.Count = count;
+        }
+        public OrderItem(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+
         }
 
         public ProductId ProductId

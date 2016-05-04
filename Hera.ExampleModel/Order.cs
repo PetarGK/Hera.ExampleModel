@@ -3,14 +3,20 @@ using Hera.ExampleModel.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Hera.ExampleModel
 {
+    [Serializable]
     public class Order : AggregateRoot<OrderState>
     {
         protected Order() : base() { }
+        public Order(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+
+        }
 
         public Order(CustomerId customerId, OrderId id)
         {

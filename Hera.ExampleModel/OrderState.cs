@@ -6,14 +6,23 @@ using System.Text;
 using System.Threading.Tasks;
 using Hera.DomainModeling.Identity;
 using Hera.ExampleModel.Events;
+using System.Runtime.Serialization;
 
 namespace Hera.ExampleModel
 {
+    [Serializable]
     public class OrderState : AggregateRootState<OrderId>
     {
         public OrderState()
         {
             Items = new List<OrderItem>();
+        }
+        public OrderState(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            CustomerId = (CustomerId)info.GetValue("CustomerId", typeof(CustomerId));
+            CreationDate = (DateTime)info.GetValue("CreationDate", typeof(DateTime));
+            Status = (OrderStatus)info.GetValue("Status", typeof(OrderStatus));
+            Items = (List<OrderItem>)info.GetValue("Items", typeof(List<OrderItem>));
         }
 
         public CustomerId CustomerId { get; set; }
@@ -46,12 +55,27 @@ namespace Hera.ExampleModel
 
             Items.Add(orderItem);
         }
+
+        protected override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+
+            info.AddValue("CustomerId", CustomerId, typeof(CustomerId));
+            info.AddValue("CreationDate", CreationDate, typeof(DateTime));
+            info.AddValue("Status", Status, typeof(OrderStatus));
+            info.AddValue("Items", Items, typeof(List<OrderItem>));
+        }
     }
 
+    [Serializable]
     public class OrderId : GuidIdentity
     {
         public static OrderId NewId = new OrderId(Guid.NewGuid());
+
         public OrderId(Guid id) : base(id) { }
+        public OrderId(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+        }
     }
 
     public enum OrderStatus
