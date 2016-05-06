@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Hera.ExampleModel
 {
+    [Serializable]
     public class OrderItem : Entity<OrderItemState>
     {
         public OrderItem(Order order, OrderItemId id, ProductId productId, Price price, int count) : base(order, id)
